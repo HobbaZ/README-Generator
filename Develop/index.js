@@ -2,8 +2,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-inquirer
-.prompt([
+inquirer.prompt([
     {
     name: 'title',
     type: 'input',
@@ -28,6 +27,11 @@ inquirer
     message: 'How do you use the project?',
     },
 
+    {
+    name: 'features',
+    type: 'input',
+    message: 'List the project features',
+    },
 
     {
     name: 'contribute',
@@ -49,6 +53,13 @@ inquirer
     },
 
     {
+    name: 'license',
+    type: 'list',
+    message: 'What license do you need for the project??',
+    choices: ['MIT', 'ISC', 'AFL', 'APACHE 2.0', 'ARTISTIC', 'CC', 'CC ZERO UNIVERSAL', 'CC ATTRIBUTION']
+    },
+
+    {
     name: 'github',
     type: 'input',
     message: 'What is your Github username?',
@@ -61,12 +72,24 @@ inquirer
     }
 
 ])
+.then((answer) => {
+    console.log(answer.title);
+    console.log(answer);
+
+})
+.catch((error) => {
+    if(error) {
+        console.log("Something went wrong")
+    }
+})
 
 // TODO: Create an array of questions for user input
 const questions = [];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    
+}
 
 // TODO: Create a function to initialize app
 function init() {}
