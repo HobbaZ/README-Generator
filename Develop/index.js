@@ -1,8 +1,13 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
+const util = require('util');
 
-inquirer.prompt([
+// create writeFile function using promises instead of a callback function
+const writeFileAsync = util.promisify(fs.writeFile);
+
+const promptUser = () => {
+  return inquirer.prompt([
     {
     name: 'title',
     type: 'input',
@@ -69,30 +74,61 @@ inquirer.prompt([
     name: 'email',
     type: 'input',
     message: 'What is your email address?',
-    }
+    },
+]);
+};
 
-])
-.then((answer) => {
-    console.log(answer.title);
-    console.log(answer);
+const generateREADME = (answers) =>
 
-})
-.catch((error) => {
-    if(error) {
-        console.log("Something went wrong")
-    }
-})
+        `
+        # ${answers.title}
+      
+        ## Description
+        ${answers.description}
+        ## Table of Contents
+        - [Description](#description)
+      
+        ## Installation
+        ${answers.install}
+      
+        ## Usage
+        ${answers.usage}
+      
+        ## Features
+        ${answers.features}
+      
+        ## Contributors
+        ${answers.contrbutors}
+      
+        ## Aknowledgements
+        ${answers.aknowledgements}
+      
+        ## License
+        ${answers.license}
+      
+        ## Testing
+        ${answers.tests}
+      
+        ## Questions
+        Find me on ${answers.github}
+        Email me at ${answers.email}
+        `;
 
 // TODO: Create an array of questions for user input
-const questions = [];
+//const questions = [];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {
+//function writeToFile(fileName, data) {
     
-}
+//}
 
 // TODO: Create a function to initialize app
-function init() {}
-
-// Function call to initialize app
-init();
+// Bonus using writeFileAsync as a promise
+const init = () => {
+    promptUser()
+      .then((answers) => writeFileAsync('README.md', generateREADME(answers)))
+      .then(() => console.log('Successfully created README.md'))
+      .catch((err) => console.error(err));
+  };
+  
+  init();
