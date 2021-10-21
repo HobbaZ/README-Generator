@@ -1,3 +1,4 @@
+//Get all neede requirements
 const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
@@ -11,7 +12,8 @@ const promptUser = () => {
     name: 'title',
     type: 'input',
     message: 'What is the project title?',
-    },
+  },
+    
 
     {
     name: 'description',
@@ -59,7 +61,7 @@ const promptUser = () => {
     {
     name: 'license',
     type: 'list',
-    message: 'What license do you need for the project??',
+    message: 'What license do you need for the project?',
     choices: ['MIT', 'ISC', 'AFL', 'APACHE 2.0', 'ARTISTIC', 'CC', 'CC ZERO UNIVERSAL', 'CC ATTRIBUTION']
     },
 
@@ -77,15 +79,29 @@ const promptUser = () => {
 ]);
 };
 
-const generateREADME = (answers) =>
+function genBadge(answers) {
+  const licenseType = answers.license;
+  let licenseStr = '';
+  if (answers.license) {
+    licenseStr = `![License](https://img.shields.io/badge/License-${answers.license}-blue.svg)`
+  } else {
+    licenseStr = '';
+  }
+  return licenseStr;
+}
+
+const generateREADME = (answers) => 
 
 `
 # ${answers.title}
 
 ## Description
 ${answers.description}
+
 ## Table of Contents
 - [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
 
 ## Installation
 ${answers.install}
@@ -96,27 +112,24 @@ ${answers.usage}
 ## Features
 ${answers.features}
 
+//Link github to 
 ## Contributors
-${answers.contribute}
+[${answers.contribute}](https://github.com/HobbaZ)
 
 ## Aknowledgements
 ${answers.acknowledgements}
 
 ## License
-${answers.license}
+${genBadge(answers)}
 
 ## Testing
 ${answers.testing}
 
 ## Questions
-Find me on Github at ${answers.github}
-Email me at ${answers.email}
-`;
+Find me on Github at [${answers.github}](https://github.com/${answers.github})
 
-// TODO: Create a function to write README file
-//function writeToFile(fileName, data) {
-    
-//}
+Email me at [${answers.email}](${answers.email})
+`;
 
 const init = () => {
     promptUser()
@@ -124,5 +137,6 @@ const init = () => {
       .then(() => console.log('Successfully created README.md'))
       .catch((err) => console.error(err));
   };
+
   
   init();
