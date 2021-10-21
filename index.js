@@ -1,4 +1,3 @@
-// TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
@@ -35,7 +34,7 @@ const promptUser = () => {
     {
     name: 'features',
     type: 'input',
-    message: 'List the project features',
+    message: 'List the project features e.g. frameworks used, programming languages used',
     },
 
     {
@@ -80,50 +79,45 @@ const promptUser = () => {
 
 const generateREADME = (answers) =>
 
-        `
-        # ${answers.title}
-      
-        ## Description
-        ${answers.description}
-        ## Table of Contents
-        - [Description](#description)
-      
-        ## Installation
-        ${answers.install}
-      
-        ## Usage
-        ${answers.usage}
-      
-        ## Features
-        ${answers.features}
-      
-        ## Contributors
-        ${answers.contrbutors}
-      
-        ## Aknowledgements
-        ${answers.aknowledgements}
-      
-        ## License
-        ${answers.license}
-      
-        ## Testing
-        ${answers.tests}
-      
-        ## Questions
-        Find me on ${answers.github}
-        Email me at ${answers.email}
-        `;
+`
+# ${answers.title}
 
-// TODO: Create an array of questions for user input
-//const questions = [];
+## Description
+${answers.description}
+## Table of Contents
+- [Description](#description)
+
+## Installation
+${answers.install}
+
+## Usage
+${answers.usage}
+
+## Features
+${answers.features}
+
+## Contributors
+${answers.contribute}
+
+## Aknowledgements
+${answers.acknowledgements}
+
+## License
+${answers.license}
+
+## Testing
+${answers.testing}
+
+## Questions
+Find me on Github at ${answers.github}
+Email me at ${answers.email}
+`;
 
 // TODO: Create a function to write README file
 //function writeToFile(fileName, data) {
     
 //}
 
-// TODO: Create a function to initialize app
-// Bonus using writeFileAsync as a promise
 const init = () => {
     promptUser()
       .then((answers) => writeFileAsync('README.md', generateREADME(answers)))
