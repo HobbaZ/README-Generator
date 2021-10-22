@@ -9,27 +9,37 @@ const writeFileAsync = util.promisify(fs.writeFile);
 const promptUser = () => {
   return inquirer.prompt([
 
-    {
-    name: 'title',
-    type: 'input',
-    message: 'Enter a project title (Hint: same as Github Repo)',
-    default: 'README-Generator',
-    validate: function(title) {
-			if (title) {
-				return true;
-			} else {
-        return 'Please create a title for your README.';
-      }
-		},
-
+  //Title
+  {
+  name: 'title',
+  type: 'input',
+  message: 'Enter a project title (Hint: same as Github Repo)',
+  default: 'README-Generator', //You can change this to your repo
+  validate: function(title) {
+    if (title) {
+      return true;
+    } else {
+      return 'Please create a title for your README.';
+    }
+  },
   },
     
-
+  //Description
   {
   name: 'description',
   type: 'input',
   message: 'Write a description of the project',
-  default: '<h5>Project Aim</h5>The aim of this project was to create a README generator as per the specifications of my homework assignment.<h5>What Problem Does It Solve</h5>The generator enables me to produce faster and more efficient README documentation<h5>What I Learnt</h5>in making this project, I learnt how to use Node.js, string literals, inquirer and validating inputs'
+  default: //Change description input here
+  ` 
+  <h5>Project Aim</h5>
+  The aim of this project was to create a README generator as per the specifications of my homework assignment.
+
+  <h5>What Problem Does It Solve</h5>
+  The generator enables me to produce faster and more efficient README documentation.
+
+  <h5>What I Learnt</h5>
+  in making this project, I learnt how to use Node.js, string literals, inquirer and validating inputs
+  ` //These are tildes, not commas, key between esc and tab
   ,
   validate: function(description) {
 		if (description) {
@@ -40,104 +50,125 @@ const promptUser = () => {
 	}
   },
 
-    {
-    name: 'installation',
-    type: 'input',
-    message: 'What requirements are needed to run this project?',
-    validate: function(install) {
-			if (install) {
-				return true;
-			} else {
-        return 'Please enter the install process of your project.';
-      }
-		}
-    },
-
-    {
-    name: 'usage',
-    type: 'input',
-    message: 'How do you use the project?',
-    validate: function(usage) {
-			if (usage) {
-				return true;
-			} else {
-        return 'Please create step by step how to use process for your project';
-      }
-		}
-    },
-
-    {
-    name: 'technology',
-    type: 'input',
-    message: 'List the project features e.g. frameworks used, programming languages used with comma seperator E.g. HTML,CSS',
-    //Fill out technology used here with comma separarators
-    default: 'JavaScript,Node.js,npm,inquirer',
-    validate: function(features) {
-			if (features) {
-				return true;
-			} else {
-        return 'Please enter the frameworks used.';
-      }
-		}
-    },
-
-    //Replace default name with your name
-    {
-    name: 'contributors',
-    type: 'input',
-    message: 'Who contributed to the project and how can others contribute? (You are also a contributor)',
-    default: 'Zachary Hobba',
-    },
-
-    {
-    name: 'acknowledgements',
-    type: 'input',
-    message: 'What other assets did you use to help create this project? E.g. Used font from Google Fonts, \
-    Bootstrap for layout',
-    //input full addresses here separated by come
-    default: 'https://www.npmjs.com/package/inquirer#questions,https://choosealicense.com/,https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide,https://github.com/SBoudrias/Inquirer.js'
-    },   
-
-    {
-    name: 'testing',
-    type: 'input',
-    message: 'What tests can be performed on the project?',
-    default: 'npm tests',
-    },
-
-    {
-    name: 'license',
-    type: 'list',
-    message: 'What license do you need for the project?',
-    choices: ['MIT', 'ISC', 'AFL', 'APACHE 2.0', 'ARTISTIC', 'CC', 'CC ZERO UNIVERSAL', 'CC ATTRIBUTION']
-    },
-
-    {
-    name: 'github',
-    type: 'input',
-    message: 'What is your Github username?',
-    default: 'HobbaZ'
-    },
-
-    {
-    name: 'email',
-    type: 'input',
-    message: 'What is your email address?',
-    default: 'zachobba@gmail.com',
-    validate: function(email) {
-			let test = email.match("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
-			if (test) {
-				return true;
-			} else {
-        return 'Please enter a valid email.';
-      }
-		}
+  //Installation
+  {
+  name: 'installation',
+  type: 'input',
+  message: 'What requirements are needed to run this project (separate by comma)?',
+  default: 'Node.js, npm, inquirer', //default value can be changed to your value
+  
+  validate: function(install) {
+    if (install) {
+      return true;
+    } else {
+      return 'Please enter the install process of your project.';
+    }
+  }
   },
 
-  ]);
+  {
+  name: 'usage',
+  type: 'input',
+  message: 'How do you use the project?',
+  default: //change steps to own installation process here
+    `
+  1. Clone this repository to your computer
+  2. Install Node.js
+  3. Install npm by opening a termimal on your project (Terminal - new Terminal) and type npm i, wait for it to finish
+  4. Install inquirer by typing npm i inquirer in the terminal
+  5. Edit the default question inputs to your liking (this will reduce repetitive typing and allow you to just press enter for prompts)
+  5. Then type in the Terminal node index.js and follow the prompts
+  `,
+  validate: function(usage) {
+    if (usage) {
+      return true;
+    } else {
+      return 'Please create step by step of how to use process for your project';
+    }
+  }
+  },
+
+  //Technology
+  {
+  name: 'technology',
+  type: 'input',
+  message: 'List the project features e.g. frameworks used, programming languages used with comma seperator E.g. HTML,CSS',
+  //Fill out technology used here with comma separarators, no spaces inbetween
+  default: 'JavaScript,Node.js,npm,inquirer',
+  validate: function(features) {
+    if (features) {
+      return true;
+    } else {
+      return 'Please enter the frameworks used.';
+    }
+  }
+  },
+
+  //Contributors
+  {
+  name: 'contributors',
+  type: 'input',
+  message: 'Who contributed to the project and how can others contribute? (You are also a contributor)',
+  default: `
+  [Zachary Hobba](https://github.com/HobbaZ)<br>
+  You can also contribute by opening a pull request or submitting an issue
+  `// input your own name and github link in this default section, repeat for any other contributors
+  ,
+  },
+
+  //Acknowledgements
+  {
+  name: 'acknowledgements',
+  type: 'input',
+  message: 'What other assets did you use to help create this project? E.g. Used Google Fonts, Bootstrap layout, stackoverflow questions',
+  //input full addresses here separated by comma
+  default: 'https://www.npmjs.com/package/inquirer#questions,https://choosealicense.com/,https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide,https://github.com/SBoudrias/Inquirer.js'
+  },   
+
+  //Testing
+  {
+  name: 'testing',
+  type: 'input',
+  message: 'What tests can be performed on the project?',
+  default: 'npm tests',
+  },
+
+  //License choices
+  {
+  name: 'license',
+  type: 'list',
+  message: 'What license do you need for the project?',
+  choices: ['MIT', 'ISC', 'AFL', 'APACHE 2.0', 'ARTISTIC', 'CC', 'CC ZERO UNIVERSAL', 'CC ATTRIBUTION']
+  },
+
+  //Github link
+  {
+  name: 'github',
+  type: 'input',
+  message: 'What is your Github username?', 
+  default: 'HobbaZ' //change to your username
+  },
+
+  //Email link
+  {
+  name: 'email',
+  type: 'input',
+  message: 'What is your email address?',
+  default: 'zachobba@gmail.com', //change to your email
+  validate: function(email) {
+    let test = email.match("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
+    if (test) {
+      return true;
+    } else {
+      return 'Please enter a valid email.';
+    }
+  }
+},
+
+]);
 };
 
-function genTechnology(answers) {
+function genTechnology(answers) { //This function generates a list from your technology answers
   let format = '';
   if (answers.technology) {
     format = answers.technology.split(",").join("<br>");
@@ -147,10 +178,10 @@ function genTechnology(answers) {
   return format;
 }
 
-function genBadge(answers) {
+function genBadge(answers) { //This function gets the license you selected and creates a badge and inserts it into a clickable url
   let licenseStr = '';
   if (answers.license) {
-    const licenseLink = answers.license.toLowerCase();
+    const licenseLink = answers.license.toLowerCase().replace(" ", "-");
     licenseStr = `[![License](https://img.shields.io/badge/License-${answers.license}-blue.svg)](https://choosealicense.com/licenses/${licenseLink}/)`
   } else {
     licenseStr = '';
@@ -158,7 +189,7 @@ function genBadge(answers) {
   return licenseStr;
 }
 
-function genAcknowledgements(answers) {
+function genAcknowledgements(answers) { //This function gets the resource links you've entered and places them a space apart down the page
   let format = '';
   if (answers.acknowledgements) {
     format = answers.acknowledgements.split(",").join("<br><br>");
@@ -168,7 +199,7 @@ function genAcknowledgements(answers) {
   return format;
 }
 
-/*function genTableofContents(answers) {
+/*function genTableofContents(answers) { //This was an attempt at a generated table of contents
 
   answeredPrompts =[]
 
@@ -192,15 +223,15 @@ const generateREADME = (answers) =>
 ${answers.description}
 
 ## Table of Contents
-[Description](#description)
-[Installation](#installation)
-[Usage](#usage)
-[Technology](#technology)
-[Contributors](#contributors)
-[Aknowledgements](#acknowledgements)
-[Testing](#testing)
-[License](#license)
-[Questions](#questions)
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Technology](#technology)
+- [Contributors](#contributors)
+- [Acknowledgements](#acknowledgements)
+- [Testing](#testing)
+- [License](#license)
+- [Questions](#questions)
 
 ## Installation
 ${answers.install}
@@ -212,9 +243,9 @@ ${answers.usage}
 ${genTechnology(answers)}
  
 ## Contributors
-[${answers.contributors}](https://github.com/HobbaZ)
+${answers.contributors}
 
-## Aknowledgements
+## Acknowledgements
 ${genAcknowledgements(answers)}
 
 ## Testing
