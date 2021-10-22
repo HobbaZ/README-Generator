@@ -31,13 +31,13 @@ const promptUser = () => {
   message: 'Write a description of the project',
   default: //Change description input here
   ` 
-  <h5>Project Aim</h5>
+  <h3>Project Aim</h3>
   The aim of this project was to create a README generator as per the specifications of my homework assignment.
 
-  <h5>What Problem Does It Solve</h5>
+  <h3>What Problem Does It Solve</h3>
   The generator enables me to produce faster and more efficient README documentation.
 
-  <h5>What I Learnt</h5>
+  <h3>What I Learnt</h3>
   in making this project, I learnt how to use Node.js, string literals, inquirer and validating inputs
   ` //These are tildes, not commas, key between esc and tab
   ,
@@ -114,6 +114,13 @@ const promptUser = () => {
   You can also contribute by opening a pull request or submitting an issue
   `// input your own name and github link in this default section, repeat for any other contributors
   ,
+  validate: function(contributors) {
+    if (contributors) {
+      return true;
+    } else {
+      return 'Please enter the names of any contributors.';
+    }
+  }
   },
 
   //Acknowledgements
@@ -122,7 +129,7 @@ const promptUser = () => {
   type: 'input',
   message: 'What other assets did you use to help create this project? E.g. Used Google Fonts, Bootstrap layout, stackoverflow questions',
   //input full addresses here separated by comma
-  default: 'https://www.npmjs.com/package/inquirer#questions,https://choosealicense.com/,https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide,https://github.com/SBoudrias/Inquirer.js'
+  default: 'https://www.npmjs.com/package/inquirer#questions,https://gist.github.com/lukas-h/2a5d00690736b4c3a7ba,https://choosealicense.com/,https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide,https://github.com/SBoudrias/Inquirer.js'
   },   
 
   //Testing
@@ -138,7 +145,7 @@ const promptUser = () => {
   name: 'license',
   type: 'list',
   message: 'What license do you need for the project?',
-  choices: ['MIT', 'ISC', 'AFL', 'APACHE 2.0', 'ARTISTIC', 'CC', 'CC ZERO UNIVERSAL', 'CC ATTRIBUTION']
+  choices: ['MIT', 'ISC', 'APACHE 2.0', 'THE UNLICENSE', 'BOOST SOFTWARE LICENSE 1.0', 'GNU AGPLv3', 'GNU GPLv3'],
   },
 
   //Github link
@@ -146,7 +153,14 @@ const promptUser = () => {
   name: 'github',
   type: 'input',
   message: 'What is your Github username?', 
-  default: 'HobbaZ' //change to your username
+  default: 'HobbaZ', //change to your username
+  validate: function(github) {
+    if (github) {
+      return true;
+    } else {
+      return 'Please enter your Github username.';
+    }
+  }
   },
 
   //Email link
@@ -179,10 +193,12 @@ function genTechnology(answers) { //This function generates a list from your tec
 }
 
 function genBadge(answers) { //This function gets the license you selected and creates a badge and inserts it into a clickable url
-  let licenseStr = '';
-  if (answers.license) {
-    const licenseLink = answers.license.toLowerCase().replace(" ", "-");
-    licenseStr = `[![License](https://img.shields.io/badge/License-${answers.license}-blue.svg)](https://choosealicense.com/licenses/${licenseLink}/)`
+  let licenseStr = ''; //currently only apache, MIT, ISC licenses work
+  if (answers.license) {    
+    let licenseLink = answers.license.replace(" ", "-").toLowerCase();
+    const badge = answers.license.replace(" ", "_"); //spaces need to be converted to underscores in badges
+
+    licenseStr = `[![License](https://img.shields.io/badge/License-${badge}-blue.svg)](https://choosealicense.com/licenses/${licenseLink}/)`
   } else {
     licenseStr = '';
   }
@@ -217,7 +233,8 @@ function genAcknowledgements(answers) { //This function gets the resource links 
 const generateREADME = (answers) => 
 
 `
-# ${answers.title}
+# ${answers.title}<hr>
+${genBadge(answers)}
 
 ## Description
 ${answers.description}
@@ -234,7 +251,8 @@ ${answers.description}
 - [Questions](#questions)
 
 ## Installation
-${answers.install}
+You will need: 
+${answers.installation}
 
 ## Usage
 ${answers.usage}
@@ -252,7 +270,7 @@ ${genAcknowledgements(answers)}
 ${answers.testing}
 
 ## License
-${genBadge(answers)}
+${answers.license}
 
 ## Questions
 Find me on Github at [${answers.github}](https://github.com/${answers.github})
