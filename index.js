@@ -105,8 +105,8 @@ const promptUser = () => {
   default: //change steps to own installation process here
     `
   1. Clone this repository to your computer
-  2. Initialize npm by opening a termimal on your project (Terminal - new Terminal) and type npm init -y, wait for it to finish
-  3. Install npm by typing npm i, wait for it to finish
+  2. If you don't have node.js on your computer already, download and install it
+  3. Install inquirer dependency by opening a termimal on your project (Terminal - new Terminal) and type npm install inquirer, wait for it to finish 
   4. Edit the default question inputs to your liking (this will reduce repetitive typing and allow you to just press enter for prompts)
   5. Then type in the Terminal node index.js and follow the prompts
   `,
