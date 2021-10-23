@@ -1,4 +1,4 @@
-//Get all neede requirements
+//Get all needed requirements
 const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
@@ -32,12 +32,15 @@ const promptUser = () => {
   default: //Change description input here
   ` 
   <h3>Project Aim</h3>
-  The aim of this project was to create a README generator as per the specifications of my homework assignment.
+
+  The aim of this project was to create a professional README generator.
 
   <h3>What Problem Does It Solve</h3>
+
   The generator enables me to produce faster and more efficient README documentation.
 
   <h3>What I Learnt</h3>
+
   in making this project, I learnt how to use Node.js, string literals, inquirer and validating inputs
   ` //These are tildes, not commas, key between esc and tab
   ,
@@ -48,6 +51,35 @@ const promptUser = () => {
       return 'Please create a description for your project README.';
     }
 	}
+  },
+
+  //User Story
+  {
+  name: 'userStory',
+  type: 'input',
+  message: 'Describe the wanted features of the program',
+  default: `
+  As A USER I Want a program that helps me create readme documentation quickly by generating sections with my desired input
+  WHEN I run the program in Terminal
+  THEN I am prompted to enter information about my project, section by section
+  `,
+  validate: function(userStory) {
+		if (userStory) {
+			return true;
+		} else {
+      return 'Please create a user story for your project README.';
+    }
+	}
+  },
+
+  //Screenshots
+  {
+  //Photo by <a href="https://unsplash.com/@afgprogrammer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mohammad Rahmani</a> on <a href="https://unsplash.com/s/photos/github?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  
+  name: 'screenshots',
+  type: 'input',
+  message: 'What screenshots would you like to display?',
+  default: '![Image of colour lit keyboard](/Develop/assets/images/mohammad-rahmani-lPKIb8dJ8kw-unsplash.jpg)',//example screenshot
   },
 
   //Installation
@@ -61,7 +93,7 @@ const promptUser = () => {
     if (install) {
       return true;
     } else {
-      return 'Please enter the install process of your project.';
+      return 'Please enter the install requirements of your project.';
     }
   }
   },
@@ -118,7 +150,7 @@ const promptUser = () => {
     if (contributors) {
       return true;
     } else {
-      return 'Please enter the names of any contributors.';
+      return 'Please enter the names of any contributors and contribution process.';
     }
   }
   },
@@ -145,7 +177,7 @@ const promptUser = () => {
   name: 'license',
   type: 'list',
   message: 'What license do you need for the project?',
-  choices: ['MIT', 'ISC', 'APACHE 2.0', 'THE UNLICENSE', 'BOOST SOFTWARE LICENSE 1.0', 'GNU AGPLv3', 'GNU GPLv3'],
+  choices: ['MIT', 'ISC', 'APACHE 2.0', 'THE UNLICENSE', 'GNU AGPLv3', 'GNU GPLv3'],
   },
 
   //Github link
@@ -215,21 +247,6 @@ function genAcknowledgements(answers) { //This function gets the resource links 
   return format;
 }
 
-/*function genTableofContents(answers) { //This was an attempt at a generated table of contents
-
-  answeredPrompts =[]
-
-  if(answers.length !== 0) {
-    answeredPrompts.push(Object.getOwnPropertyNames(answers));
-  }
-    let toc = '##Table of Contents';
-
-    for (let index = 0; index < answeredPrompts.length; index++) {
-      toc += `\n[${answeredPrompts[index]}](#${answeredPrompts[index]})\n`;
-    }
-    return toc;
-}*/
-
 const generateREADME = (answers) => 
 
 `
@@ -237,10 +254,12 @@ const generateREADME = (answers) =>
 ${genBadge(answers)}
 
 ## Description
-${answers.description}
+${answers.description}<br><br>
 
 ## Table of Contents
 - [Description](#description)
+- [User Story](#userStory)
+- [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Technology](#technology)
@@ -248,29 +267,44 @@ ${answers.description}
 - [Acknowledgements](#acknowledgements)
 - [Testing](#testing)
 - [License](#license)
-- [Questions](#questions)
+- [Questions](#questions)<br><br>
+
+## User Story
+${answers.userStory}
+<br>
+
+## Screenshots
+${answers.screenshots}
+<br>
 
 ## Installation
 You will need: 
 ${answers.installation}
+<br>
 
 ## Usage
 ${answers.usage}
+<br>
 
 ## Technology
 ${genTechnology(answers)}
+<br>
  
 ## Contributors
 ${answers.contributors}
+<br>
 
 ## Acknowledgements
 ${genAcknowledgements(answers)}
+<br>
 
 ## Testing
 ${answers.testing}
+<br>
 
 ## License
 ${answers.license}
+<br>
 
 ## Questions
 Find me on Github at [${answers.github}](https://github.com/${answers.github})
@@ -280,10 +314,19 @@ Email me at [${answers.email}](${answers.email})
 
 const init = () => {
 
-  console.log("____________________README GENERATOR______________________\n Follow the prompts to generate a professional README")
+  console.log(`
+              ____________________README GENERATOR______________________
+
+                  Follow the prompts to generate a professional README
+                  
+                  `)
     promptUser()
       .then((answers) => writeFileAsync('README.md', generateREADME(answers)))
-      .then(() => console.log('Successfully created README.md'))
+      .then(() => console.log(`
+                                      Finished!
+
+                            Successfully created README.md
+      `))
       .catch((err) => console.error(err));
   };
 
