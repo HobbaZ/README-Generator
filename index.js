@@ -17,7 +17,7 @@ const promptUser = () => {
   name: 'yourName',
   type: 'input',
   message: 'Enter your name',
-  default: 'Zachary Hobba',
+  default: 'Zachary Hobba', //change to your name
   validate: function(yourName) {
     if (yourName) {
       return true;
@@ -83,15 +83,19 @@ const promptUser = () => {
   <h3>Project Aim</h3>
 
   The aim of this project was to create a professional README generator.
+  Which you can [view here](https://github.com/HobbaZ/README-Generator)
 
   <h3>What Problem Does It Solve</h3>
 
-  The generator enables me to produce faster and more efficient README documentation.
+  The generator enables you to produce more efficient README documentation, spending less time on documentation and 
+  more time on making your project come to life. With sections for the repo title, project description, installation, user story, screenshots, contributors sections and more,
+  it'll give you that professional README look straight out of the box, of course you can also add and remove sections as you like.
 
   <h3>What I Learnt</h3>
 
-  in making this project, I learnt how to use Node.js, string literals, inquirer and validating inputs
-  ` //These are tildes, not commas, key between esc and tab
+  in making this project, I learnt how to use Node.js, string literals, inquirer and validating inputs.
+  ` //These are tildes, not commas, the wavy key between esc and tab
+  //replace the view here link with your own deployed repo
   ,
   validate: function(description) {
 		if (description) {
@@ -108,9 +112,15 @@ const promptUser = () => {
   type: 'input',
   message: 'Describe the wanted features of the program',
   default: `
-  As A USER I Want a program that helps me create readme documentation quickly by generating sections with my desired input
+  As A USER I Want a program that helps me create readme documentation quickly by generating sections with my desired input.
+
   WHEN I run the program in Terminal
-  THEN I am prompted to enter information about my project, section by section
+
+  THEN I am prompted to enter information about my project, section by section.
+
+  WHEN I finish inputting my information
+
+  THEN a README file is generated with a basic professional layout.
   `,
   validate: function(userStory) {
 		if (userStory) {
@@ -128,7 +138,7 @@ const promptUser = () => {
   name: 'screenshots',
   type: 'input',
   message: 'What screenshots would you like to display?',
-  default: '![Image of colour lit keyboard](/Develop/assets/images/mohammad-rahmani-lPKIb8dJ8kw-unsplash.jpg)',//example screenshot
+  default: '![Image of colour lit keyboard](/Develop/assets/images/mohammad-rahmani-lPKIb8dJ8kw-unsplash.jpg)',//example screenshot, code in square brackets is alt text
   },
 
   //Installation
@@ -138,8 +148,8 @@ const promptUser = () => {
   message: 'What requirements are needed to run this project (separate by comma)?',
   default: 'Node.js, npm, inquirer', //default value can be changed to your value
   
-  validate: function(install) {
-    if (install) {
+  validate: function(installation) {
+    if (installation) {
       return true;
     } else {
       return 'Please enter the install requirements of your project.';
@@ -163,7 +173,7 @@ const promptUser = () => {
     if (usage) {
       return true;
     } else {
-      return 'Please create step by step of how to use process for your project';
+      return 'Please create step by step process of how to use your project';
     }
   }
   },
@@ -172,11 +182,11 @@ const promptUser = () => {
   {
   name: 'technology',
   type: 'input',
-  message: 'List the project features e.g. frameworks used, programming languages used with comma seperator E.g. HTML,CSS',
-  //Fill out technology used here with comma separarators, no spaces inbetween
+  message: 'List the project technology e.g. frameworks used, programming languages used with comma separator (E.g. HTML,CSS)',
+  //Fill out technology used here with comma separators, no spaces inbetween
   default: 'JavaScript,Node.js,npm,inquirer',
-  validate: function(features) {
-    if (features) {
+  validate: function(technology) {
+    if (technology) {
       return true;
     } else {
       return 'Please enter the frameworks used.';
@@ -190,9 +200,9 @@ const promptUser = () => {
   type: 'input',
   message: 'Who contributed to the project and how can others contribute? (You are also a contributor)',
   default: `
-  [Zachary Hobba](https://github.com/HobbaZ)<br>
+  [Zachary Hobba](https://github.com/HobbaZ)<br> 
   You can also contribute by opening a pull request or submitting an issue
-  `// input your own name and github link in this default section, repeat for any other contributors
+  `// input your name and github link in this default section, repeat for any other contributors
   ,
   validate: function(contributors) {
     if (contributors) {
@@ -232,7 +242,7 @@ const promptUser = () => {
 };
 
 function getLicenseLink(answers) {
-  let link = "";
+  let link = ""; //will change to swith statement later
   if (answers.license ==="MIT") {
     link = 'mit';
   } else if (answers.license === "APACHE 2.0") {
@@ -248,7 +258,7 @@ function getLicenseLink(answers) {
 }
 
 function genLicenseInfo(answers) {
-  let information = "";
+  let information = ""; //will change to swith statement later
   if (answers.license === "MIT") {
     information = 
 `Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -358,7 +368,7 @@ function genTechnology(answers) { //This function generates a list from your tec
   return format;
 }
 
-function genBadge(answers) { //This function gets the license you selected and creates a badge and inserts it into a clickable url
+function genBadge(answers) { //This function gets the license you selected, creates a badge and runs getLicenseLink function to insert it into a clickable url
   let licenseStr = ''; //currently only apache, MIT, ISC licenses work
   if (answers.license) {    
     const badge = answers.license.replace(" ", "_"); //spaces need to be converted to underscores in badges
@@ -410,7 +420,7 @@ ${answers.userStory}
 ${answers.screenshots}
 <br>
 
-## Installation
+## Installation Requirements
 You will need: 
 ${answers.installation}
 <br>
@@ -458,7 +468,7 @@ const init = () => {
                   
                   `)
     promptUser()
-      .then((answers) => writeFileAsync('EXAMPLE README.md', generateREADME(answers)))
+      .then((answers) => writeFileAsync('README.md', generateREADME(answers)))
       .then(() => console.log(`
                                       Finished!
 

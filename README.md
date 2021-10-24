@@ -1,20 +1,23 @@
 
 # README-Generator<hr>
-[![License](https://img.shields.io/badge/License-APACHE_2.0-blue.svg)](https://choosealicense.com/licenses/apache-2.0/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://choosealicense.com/licenses/mit/)
 
 ## Description
  
   <h3>Project Aim</h3>
 
   The aim of this project was to create a professional README generator.
+  Which you can [view here](https://github.com/HobbaZ/README-Generator)
 
   <h3>What Problem Does It Solve</h3>
 
-  The generator enables me to produce faster and more efficient README documentation.
+  The generator enables you to produce more efficient README documentation, spending less time on documentation and 
+  more time on making your project come to life. With sections for the repo title, project description, installation, user story, screenshots, contributors sections and more,
+  it'll give you that professional README look straight out of the box, of course you can also add and remove sections as you like.
 
   <h3>What I Learnt</h3>
 
-  in making this project, I learnt how to use Node.js, string literals, inquirer and validating inputs
+  in making this project, I learnt how to use Node.js, string literals, inquirer and validating inputs.
   <br><br>
 
 ## Table of Contents
@@ -32,9 +35,15 @@
 
 ## User Story
 
-  As A USER I Want a program that helps me create readme documentation quickly by generating sections with my desired input
+  As A USER I Want a program that helps me create readme documentation quickly by generating sections with my desired input.
+
   WHEN I run the program in Terminal
-  THEN I am prompted to enter information about my project, section by section
+
+  THEN I am prompted to enter information about my project, section by section.
+
+  WHEN I finish inputting my information
+
+  THEN a README file is generated with a basic professional layout.
   
 <br>
 
@@ -42,7 +51,7 @@
 ![Image of colour lit keyboard](/Develop/assets/images/mohammad-rahmani-lPKIb8dJ8kw-unsplash.jpg)
 <br>
 
-## Installation
+## Installation Requirements
 You will need: 
 Node.js, npm, inquirer
 <br>
@@ -63,7 +72,7 @@ JavaScript<br>Node.js<br>npm<br>inquirer
  
 ## Contributors
 
-  [Zachary Hobba](https://github.com/HobbaZ)<br>
+  [Zachary Hobba](https://github.com/HobbaZ)<br> 
   You can also contribute by opening a pull request or submitting an issue
   
 <br>
@@ -77,21 +86,17 @@ npm tests
 <br>
 
 ## License
-APACHE 2.0
+MIT
 
 Copyright 2021 Zachary Hobba
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-[Apache 2.0 license link](http://www.apache.org/licenses/LICENSE-2.0)
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    
+End license text.
 <br>
 
 ## Questions
