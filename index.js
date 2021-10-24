@@ -3,11 +3,60 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
 
+//use in built date function to get year (could use moment but that means another dependency)
+const currentYear = new Date().getFullYear();
+
 // create writeFile function using promises instead of a callback function
 const writeFileAsync = util.promisify(fs.writeFile);
 
 const promptUser = () => {
   return inquirer.prompt([
+
+  //Name
+  {
+  name: 'yourName',
+  type: 'input',
+  message: 'Enter your name',
+  default: 'Zachary Hobba',
+  validate: function(yourName) {
+    if (yourName) {
+      return true;
+    } else {
+      return 'Please enter your name.';
+    }
+  }
+  },
+
+  //Github link
+  {
+  name: 'github',
+  type: 'input',
+  message: 'What is your Github username?', 
+  default: 'HobbaZ', //change to your username
+  validate: function(github) {
+    if (github) {
+      return true;
+    } else {
+      return 'Please enter your Github username.';
+    }
+  }
+  },
+  
+  //Email link
+  {
+  name: 'email',
+  type: 'input',
+  message: 'What is your email address?',
+  default: 'zachobba@gmail.com', //change to your email
+  validate: function(email) {
+    let test = email.match("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
+    if (test) {
+      return true;
+    } else {
+      return 'Please enter a valid email.';
+    }
+  }
+  },
 
   //Title
   {
@@ -21,7 +70,7 @@ const promptUser = () => {
     } else {
       return 'Please create a title for your README.';
     }
-  },
+  }
   },
     
   //Description
@@ -176,42 +225,128 @@ const promptUser = () => {
   name: 'license',
   type: 'list',
   message: 'What license do you need for the project?',
-  choices: ['MIT', 'ISC', 'APACHE 2.0', 'THE UNLICENSE', 'GNU AGPLv3', 'GNU GPLv3'],
+  choices: ['MIT', 'APACHE 2.0', 'THE UNLICENSE', 'GNU AGPLv3', 'GNU GPLv3'],
   },
-
-  //Github link
-  {
-  name: 'github',
-  type: 'input',
-  message: 'What is your Github username?', 
-  default: 'HobbaZ', //change to your username
-  validate: function(github) {
-    if (github) {
-      return true;
-    } else {
-      return 'Please enter your Github username.';
-    }
-  }
-  },
-
-  //Email link
-  {
-  name: 'email',
-  type: 'input',
-  message: 'What is your email address?',
-  default: 'zachobba@gmail.com', //change to your email
-  validate: function(email) {
-    let test = email.match("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
-    if (test) {
-      return true;
-    } else {
-      return 'Please enter a valid email.';
-    }
-  }
-},
 
 ]);
 };
+
+function getLicenseLink(answers) {
+  let link = "";
+  if (answers.license ==="MIT") {
+    link = 'mit';
+  } else if (answers.license === "APACHE 2.0") {
+    link = "apache-2.0";
+  } else if (answers.license === "THE UNLICENSE") {
+    link = "unlicense";
+  } else if (answers.license === "GNU AGPLv3") {
+    link = "agpl-3.0";
+  } else if (answers.license === "GNU GPLv3") {
+    link = "gpl-3.0";
+  }
+  return link;
+}
+
+function genLicenseInfo(answers) {
+  let information = "";
+  if (answers.license === "MIT") {
+    information = 
+`Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    
+End license text.`
+
+  } else if (answers.license === "APACHE 2.0") {
+    information = 
+`Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+[Apache 2.0 license link](http://www.apache.org/licenses/LICENSE-2.0)
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.`
+
+  } else if (answers.license === "THE UNLICENSE") {
+    information =
+`This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to [https://unlicense.org](https://unlicense.org)>`
+
+  } else if (answers.license === "GNU AGPLv3") {
+`This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Also add information on how to contact you by electronic and paper mail.
+
+If your software can interact with users remotely through a computer
+network, you should also make sure that it provides a way for users to
+get its source.  For example, if your program is a web application, its
+interface could display a "Source" link that leads users to an archive
+of the code.  There are many ways you could offer source, and different
+solutions will be better for different programs; see section 13 for the
+specific requirements.
+
+You should also get your employer (if you work as a programmer) or school,
+if any, to sign a "copyright disclaimer" for the program, if necessary.
+For more information on this, and how to apply and follow the GNU AGPL, see
+<https://www.gnu.org/licenses/>.`
+
+  } else if (answers.license === "GNU GPLv3") {
+`This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see [https://www.gnu.org/licenses](https://www.gnu.org/licenses/).
+`
+}
+  return information;
+}
+
 
 function genTechnology(answers) { //This function generates a list from your technology answers
   let format = '';
@@ -226,10 +361,9 @@ function genTechnology(answers) { //This function generates a list from your tec
 function genBadge(answers) { //This function gets the license you selected and creates a badge and inserts it into a clickable url
   let licenseStr = ''; //currently only apache, MIT, ISC licenses work
   if (answers.license) {    
-    let licenseLink = answers.license.replace(" ", "-").toLowerCase();
     const badge = answers.license.replace(" ", "_"); //spaces need to be converted to underscores in badges
 
-    licenseStr = `[![License](https://img.shields.io/badge/License-${badge}-blue.svg)](https://choosealicense.com/licenses/${licenseLink}/)`
+    licenseStr = `[![License](https://img.shields.io/badge/License-${badge}-blue.svg)](https://choosealicense.com/licenses/${getLicenseLink(answers)}/)`
   } else {
     licenseStr = '';
   }
@@ -303,6 +437,10 @@ ${answers.testing}
 
 ## License
 ${answers.license}
+
+Copyright ${currentYear} ${answers.yourName}
+
+${genLicenseInfo(answers)}
 <br>
 
 ## Questions
@@ -320,7 +458,7 @@ const init = () => {
                   
                   `)
     promptUser()
-      .then((answers) => writeFileAsync('README.md', generateREADME(answers)))
+      .then((answers) => writeFileAsync('EXAMPLE README.md', generateREADME(answers)))
       .then(() => console.log(`
                                       Finished!
 

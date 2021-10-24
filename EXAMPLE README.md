@@ -1,6 +1,6 @@
 
 # README-Generator<hr>
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://choosealicense.com/licenses/mit/)
+[![License](https://img.shields.io/badge/License-GNU_GPLv3-blue.svg)](https://choosealicense.com/licenses/gpl-3.0/)
 
 ## Description
  
@@ -50,10 +50,9 @@ Node.js, npm, inquirer
 ## Usage
 
   1. Clone this repository to your computer
-  2. Install Node.js
-  3. Install npm by opening a termimal on your project (Terminal - new Terminal) and type npm i, wait for it to finish
-  4. Install inquirer by typing npm i inquirer in the terminal
-  5. Edit the default question inputs to your liking (this will reduce repetitive typing and allow you to just press enter for prompts)
+  2. If you don't have node.js on your computer already, download and install it
+  3. Install inquirer dependency by opening a termimal on your project (Terminal - new Terminal) and type npm install inquirer, wait for it to finish 
+  4. Edit the default question inputs to your liking (this will reduce repetitive typing and allow you to just press enter for prompts)
   5. Then type in the Terminal node index.js and follow the prompts
   
 <br>
@@ -78,7 +77,11 @@ npm tests
 <br>
 
 ## License
-MIT
+GNU GPLv3
+
+Copyright 2021 Zachary Hobba
+
+
 <br>
 
 ## Questions
