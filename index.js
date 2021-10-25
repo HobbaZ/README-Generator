@@ -63,7 +63,7 @@ const promptUser = () => {
   name: 'title',
   type: 'input',
   message: 'Enter a project title (Hint: same as Github Repo)',
-  default: 'EXAMPLE README', //You can change this to your repo
+  default: 'README-Generator', //You can change this to your repo
   validate: function(title) {
     if (title) {
       return true;
@@ -137,7 +137,7 @@ const promptUser = () => {
   type: 'input',
   message: 'What screenshots would you like to display?',
   default: `
-  ![example image](/Develop/assets/images/mohammad-rahmani-lPKIb8dJ8kw-unsplash.jpg)
+  ![gif of program start](/Develop/assets/images/README-gen.gif)
   `,//example screenshot, code in square brackets is alt text, round brackets is link
   },
 
@@ -146,7 +146,7 @@ const promptUser = () => {
   name: 'installation',
   type: 'input',
   message: 'What requirements are needed to run this project (separate by comma)?',
-  default: 'Project requirements here', //default value can be changed to your value
+  default: 'Node.js, npm, inquirer', //default value can be changed to your value
   
   validate: function(installation) {
     if (installation) {
@@ -173,6 +173,7 @@ const promptUser = () => {
   5. Then type in the Terminal "node index.js" and follow the prompts
   6. When you're done, check out your amazing generated readme
 
+  Check out the walk through video [here](https://youtu.be/urMxvyrO1TM)
   `,
   validate: function(usage) {
     if (usage) {
@@ -191,14 +192,18 @@ const promptUser = () => {
     //Fill out features
     default: `
 
-    List project features here
+    - Validators for each question to check if wrong input entered or no input entered
+
+    - Default answer types
+
+    - README will be overwritten if you write to the same file, you can rename the file (at line 505) to create a new README
 
     `,
-    validate: function(features) {
-      if (features) {
+    validate: function(technology) {
+      if (technology) {
         return true;
       } else {
-        return 'Please enter the features.';
+        return 'Please enter the frameworks used.';
       }
     }
     },
@@ -497,7 +502,7 @@ const init = () => {
                   
                   `)
     promptUser()
-      .then((answers) => writeFileAsync('EXAMPLE README.md', generateREADME(answers)))
+      .then((answers) => writeFileAsync('README.md', generateREADME(answers)))
       .then(() => console.log(`
                                       Finished!
 
