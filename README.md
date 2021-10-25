@@ -61,9 +61,13 @@ Node.js, npm, inquirer
 
 ## Features
 
+    ![gif of program start](/Develop/assets/images/README-gen.gif)
+
     - Validators for each question to check if wrong input entered or no input entered
 
     - Default answer types
+    - README will be overwritten if you save to the same file, you can rename the file to create a new README
+
     
 
 ## Usage
