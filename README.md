@@ -22,9 +22,10 @@
 
 ## Table of Contents
 - [Description](#description)
-- [User Story](#userStory)
+- [User Story](#userstory)
 - [Screenshots](#screenshots)
 - [Installation](#installation)
+- [Features](#features)
 - [Usage](#usage)
 - [Technology](#technology)
 - [Contributors](#contributors)
@@ -48,26 +49,41 @@
 <br>
 
 ## Screenshots
-![Image of colour lit keyboard](/Develop/assets/images/mohammad-rahmani-lPKIb8dJ8kw-unsplash.jpg)
+
+  ![gif of program start](/Develop/assets/images/README-gen.gif)
+  
 <br>
 
-## Installation Requirements
+## Installation
 You will need: 
 Node.js, npm, inquirer
 <br>
+
+## Features
+
+    - Validators for each question to check if wrong input entered or no input entered
+
+    - Default answer types
+    
 
 ## Usage
 
   1. Clone this repository to your computer
   2. If you don't have node.js on your computer already, download and install it
-  3. Install inquirer dependency by opening a termimal on your project (Terminal - new Terminal) and type npm install inquirer, wait for it to finish 
+  3. Install inquirer dependency by opening a termimal on your project (Terminal - new Terminal) and type:
+
+      npm install inquirer 
+
   4. Edit the default question inputs to your liking (this will reduce repetitive typing and allow you to just press enter for prompts)
-  5. Then type in the Terminal node index.js and follow the prompts
+  5. Then type in the Terminal "node index.js" and follow the prompts
+  6. When you're done, check out your amazing generated readme
+
+  Check out the walk through video [here](https://youtu.be/urMxvyrO1TM)
   
 <br>
 
 ## Technology
-JavaScript<br>Node.js<br>npm<br>inquirer
+JavaScript<br>Node.js<br>inquirer
 <br>
  
 ## Contributors

@@ -94,7 +94,7 @@ const promptUser = () => {
   <h3>What I Learnt</h3>
 
   in making this project, I learnt how to use Node.js, string literals, inquirer and validating inputs.
-  ` //These are tildes, not commas, the wavy key between esc and tab
+  ` //These are back ticks, not commas, the wavy key between esc and tab
   //replace the view here link with your own deployed repo
   ,
   validate: function(description) {
@@ -108,7 +108,7 @@ const promptUser = () => {
 
   //User Story
   {
-  name: 'userStory',
+  name: 'userstory',
   type: 'input',
   message: 'Describe the wanted features of the program',
   default: `
@@ -133,12 +133,12 @@ const promptUser = () => {
 
   //Screenshots
   {
-  //Photo by <a href="https://unsplash.com/@afgprogrammer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mohammad Rahmani</a> on <a href="https://unsplash.com/s/photos/github?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
   name: 'screenshots',
   type: 'input',
   message: 'What screenshots would you like to display?',
-  default: '![Image of colour lit keyboard](/Develop/assets/images/mohammad-rahmani-lPKIb8dJ8kw-unsplash.jpg)',//example screenshot, code in square brackets is alt text
+  default: `
+  ![gif of program start](/Develop/assets/images/README-gen.gif)
+  `,//example screenshot, code in square brackets is alt text, round brackets is link
   },
 
   //Installation
@@ -165,9 +165,15 @@ const promptUser = () => {
     `
   1. Clone this repository to your computer
   2. If you don't have node.js on your computer already, download and install it
-  3. Install inquirer dependency by opening a termimal on your project (Terminal - new Terminal) and type npm install inquirer, wait for it to finish 
+  3. Install inquirer dependency by opening a termimal on your project (Terminal - new Terminal) and type:
+
+      npm install inquirer 
+
   4. Edit the default question inputs to your liking (this will reduce repetitive typing and allow you to just press enter for prompts)
-  5. Then type in the Terminal node index.js and follow the prompts
+  5. Then type in the Terminal "node index.js" and follow the prompts
+  6. When you're done, check out your amazing generated readme
+
+  Check out the walk through video [here](https://youtu.be/urMxvyrO1TM)
   `,
   validate: function(usage) {
     if (usage) {
@@ -178,13 +184,33 @@ const promptUser = () => {
   }
   },
 
+  //Features
+  {
+    name: 'features',
+    type: 'input',
+    message: 'List the project features e.g. is accessible friendly, color blind mode, controller support',
+    //Fill out features
+    default: `
+    - Validators for each question to check if wrong input entered or no input entered
+
+    - Default answer types
+    `,
+    validate: function(technology) {
+      if (technology) {
+        return true;
+      } else {
+        return 'Please enter the frameworks used.';
+      }
+    }
+    },
+
   //Technology
   {
   name: 'technology',
   type: 'input',
   message: 'List the project technology e.g. frameworks used, programming languages used with comma separator (E.g. HTML,CSS)',
   //Fill out technology used here with comma separators, no spaces inbetween
-  default: 'JavaScript,Node.js,npm,inquirer',
+  default: 'JavaScript,Node.js,inquirer',
   validate: function(technology) {
     if (technology) {
       return true;
@@ -401,9 +427,10 @@ ${answers.description}<br><br>
 
 ## Table of Contents
 - [Description](#description)
-- [User Story](#userStory)
+- [User Story](#userstory)
 - [Screenshots](#screenshots)
 - [Installation](#installation)
+- [Features](#features)
 - [Usage](#usage)
 - [Technology](#technology)
 - [Contributors](#contributors)
@@ -413,17 +440,20 @@ ${answers.description}<br><br>
 - [Questions](#questions)<br><br>
 
 ## User Story
-${answers.userStory}
+${answers.userstory}
 <br>
 
 ## Screenshots
 ${answers.screenshots}
 <br>
 
-## Installation Requirements
+## Installation
 You will need: 
 ${answers.installation}
 <br>
+
+## Features
+${answers.features}
 
 ## Usage
 ${answers.usage}
